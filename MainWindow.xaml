@@ -10,13 +10,19 @@
         Style="{DynamicResource CustomWindowStyle}"
         >
     <Grid Margin="5">
-        <Grid Height="80" VerticalAlignment="Top">
-            <Label Content="Search for:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34"/>
-            <TextBox HorizontalAlignment="Left" Padding ="3" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top" Width="364" Height="34" Margin="93,0,0,0"/>
-            <Button Content="Start Search" HorizontalAlignment="Left"  Padding ="3" Margin="469,2,0,0" VerticalAlignment="Top" Height="32" Width="109"/>
-            <Label Content="Search for:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Margin="0,38,0,0"/>
-            <TextBox HorizontalAlignment="Left" Padding ="3" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top" Width="364" Height="34" Margin="93,38,0,0"/>
-            <Button Content="Cancel" HorizontalAlignment="Left"  Padding ="3" Margin="469,40,0,0" VerticalAlignment="Top" Height="32" Width="109" />
+        <Grid Height="109" VerticalAlignment="Top">
+            <Label Content="Search for:" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBox Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="71,0,95,0"/>
+            <Button Content="Start Search" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
+            <Label Content="Start Folder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0"/>
+            <TextBox  Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="71,31,122,0" BorderThickness="1 1 0 1"/>
+
+            <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Height="26" Width="90" />
+           
+            <Button Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
+
+
+
 
         </Grid>
         <Grid Margin="0,80,0,0"/>
