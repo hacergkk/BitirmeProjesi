@@ -5,26 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchApplication"
         mc:Ignorable="d"
-        Title="Search Application" 
+        Title="Dosya Arama Uygulaması" 
         Height="500" Width="600"
+        MinWidth="601" MinHeight="523"
         Style="{DynamicResource CustomWindowStyle}"
         >
     <Grid Margin="5">
-        <Grid Height="109" VerticalAlignment="Top">
-            <Label Content="Search for:" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="71,0,95,0"/>
-            <Button Content="Start Search" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
-            <Label Content="Start Folder:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0"/>
-            <TextBox  Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="71,31,122,0" BorderThickness="1 1 0 1"/>
+        <Grid Height="123" VerticalAlignment="Top">
+            <Label Content="Dosya Ara :" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBox Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="75,0,95,0"/>
+            <Button Content="Aramayı Başlat" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
+            <Label Content="Klasörü Seç :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0"/>
+            <TextBox  Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="75,31,122,0" BorderThickness="1 1 0 1"/>
 
-            <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Height="26" Width="90" />
-           
+            <Button Content="İptal" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Height="26" Width="90" />
+
             <Button Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
+            <Label Content="Arama Türü :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,62,0,0"/>
+            <RadioButton Content="Klasör" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="Dosya" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
+            <RadioButton Content="Dosya" HorizontalAlignment="Left" Margin="214,65,0,0" VerticalAlignment="Top"/>
+            <Label Content="Diğer Seçenekler :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,93,0,0"/>
+            <RadioButton Content="Büyük/Küçük Harf Duyarlı" HorizontalAlignment="Left" Margin="112,98,0,0" VerticalAlignment="Top"/>
 
 
 
 
         </Grid>
-        <Grid Margin="0,80,0,0"/>
+        <Separator VerticalAlignment="Top" Margin="0,126,0,0"/>
+        <Grid Margin="0,123,0,0">
+            <Label Content="Arama Sonucu" HorizontalAlignment="Left" Margin="1,11,0,0" VerticalAlignment="Top"/>
+            <ListBox Margin="0,46,0,39"/>
+            <Button Content="İptal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="106" Margin="0,6,0,0" Background="{DynamicResource ControlBrightDefaultBackground}" BorderBrush="#FF4A4A4A" />
+            <Button Content="Dosyanın Yolunu Kopyala" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="163" Margin="0,6,120,0" Background="#FF343434" BorderBrush="#FF4A4A4A" Foreground="#FFEBEBEB" />
+        </Grid>
+        <Grid Height="33" VerticalAlignment="Bottom" Margin="0,439,0,0">
+            <Grid Height="26" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Bulunan Öğeler :" HorizontalAlignment="Left"/>
+                <Label Content="xxxxx" Margin="99,0,0,0" Padding="0 5 5 5"/>
+                <Label Content="Aranan Klasörler :" HorizontalAlignment="Left" Grid.Column="1"/>
+                <Label Content="xxxx" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="1"/>
+                <Label Content="Aranan Dosyalar :" HorizontalAlignment="Left" Grid.Column="2"/>
+                <Label Content="xxxx" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="2"/>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
