@@ -52,7 +52,6 @@
                 <Label Content="xxxx" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="1"/>
                 <Label Content="Aranan Dosyalar :" HorizontalAlignment="Left" Grid.Column="2"/>
                 <Label Content="xxxx" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="2"/>
-
             </Grid>
         </Grid>
     </Grid>
