@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SearchApplication.Results"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="40" d:DesignWidth="601">
     <Grid>
-            
+        <TextBlock Text="Dosya İsmi" Margin="10,2,0,0" TextTrimming="CharacterEllipsis"/>
+        <Separator Margin="3,0,3,0"/>
+        <TextBlock Text="Dosyanın Yolu" Margin="10,20,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
     </Grid>
 </UserControl>
