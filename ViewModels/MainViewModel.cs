@@ -2,9 +2,11 @@
 using SearchApplication.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace SearchApplication.ViewModels
 {
@@ -50,15 +52,42 @@ namespace SearchApplication.ViewModels
             set => RaisePropertyChanged(ref _fileSearch, value);
         }
         
-        private string _caseSensitive;
+        private bool _caseSensitive;
         /// <summary>
         /// Diğer Seçenekler - Büyük/Küçük Harf Duyarlı
         /// </summary>
-        public string CaseSensitive
+        public bool CaseSensitive
         {
             get => _caseSensitive;
             set => RaisePropertyChanged(ref _caseSensitive, value);
         }
+        
+        /// <summary>
+        /// Verileri birbirine bağlamak için wpf'de bu metot tercih edilir.
+        /// </summary>
+        public ObservableCollection<ResultItemViewModel> Results { get; set; }
+
+        public ICommand SearchCommand { get; }
+        public ICommand CancelSearchCommand { get; }
+        public ICommand SelectStartFolderCommand { get; }
+        public ICommand ExportResultsCommand { get; }
+        public ICommand ClearResultsCommand { get; }
+
+        public MainViewModel()
+        {
+            Results=new ObservableCollection<ResultItemViewModel>();
+            Results.Add(new ResultItemViewModel()
+            {
+                FileName = "Test file name.txt",
+                FilePath = @"C:\Hacer\Desktop\Test file name.txt",
+                FileSizeBytes = 123456,
+                Selection="test"
+            });
+
+        }
+
+
+
 
     }
 }
