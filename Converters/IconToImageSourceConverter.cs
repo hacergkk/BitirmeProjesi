@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace SearchApplication.Converters
 {
-    public class IconToImageSourceConverter:IValueConverter
+    public class IconToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -8,11 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="601">
     <UserControl.Resources>
-        <Converters:IconToImageConverter x:Key="deneme"/>
+        <Converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
     </UserControl.Resources>
     <Grid>
-        <TextBlock Text="Dosya İsmi" Margin="10,2,0,0" TextTrimming="CharacterEllipsis"/>
-        <Separator Margin="3,0,3,0"/>
-        <TextBlock Text="Dosyanın Yolu" Margin="10,20,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+        <Grid Background="Transparent">
+            <Image Source="{Binding Icon, Converter={StaticResource IconToImageSourceConverter}}" HorizontalAlignment="Left" Width="20" Height="20"/>
+        </Grid>
+        <TextBlock Text="Dosya İsmi" Margin="25,2,0,0" TextTrimming="CharacterEllipsis"/>
+        <Separator Margin="25,0,3,0"/>
+        <TextBlock Text="Dosyanın Yolu" Margin="25,20,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
     </Grid>
 </UserControl>
