@@ -11,7 +11,7 @@ namespace SearchApplication.Results
 {
     public class ResultItemViewModel : BaseViewModel
     {
-        ///Eğer dosyanın resmini de koyacaksan icon türünde tanımlaman gerekiyor.
+        public Icon Icon { get; set; }
 
         private string _fileName;
         public string FileName

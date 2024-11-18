@@ -24,6 +24,11 @@ namespace SearchApplication.Results
         public ResultControl()
         {
             InitializeComponent();
+            /// <Image Source="{Binding Icon, => Görüntü kaynağının icon olduğu belirtilir.
+            /// UpdateSourceTrigger=PropertyChanged, => Icon propoertsi değiştiyse source otomatik güncellenir.
+            /// Converter={StaticResource IconToImageSourceConverter}}" Converterı atandı.
+            /// HorizontalAlignment="Left" Width="20" Height="20"/>
+
         }
     }
 }
