@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SearchApplication.Results"
+             xmlns:Converters="clr-namespace:SearchApplication.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="601">
+    <UserControl.Resources>
+        <Converters:IconToImageConverter x:Key="deneme"/>
+    </UserControl.Resources>
     <Grid>
         <TextBlock Text="Dosya İsmi" Margin="10,2,0,0" TextTrimming="CharacterEllipsis"/>
         <Separator Margin="3,0,3,0"/>

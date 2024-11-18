@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SearchApplication.Results
+namespace SearchApplication.Files
 {
-    public enum SearchType
+
+    public enum FileType
     {
-        //bu tür: "Arama Türü" başlığı altında yer alan seçenekler içindir.
         Folder, File
     }
+
 }

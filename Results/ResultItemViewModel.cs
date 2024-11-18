@@ -1,4 +1,5 @@
-﻿using SearchApplication.Utilities;
+﻿using SearchApplication.Files;
+using SearchApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -39,7 +40,7 @@ namespace SearchApplication.Results
             get => _selection;
             set => RaisePropertyChanged(ref _selection, value);
         }
+        public FileType Type { get; set; }
 
-        
     }
 }
