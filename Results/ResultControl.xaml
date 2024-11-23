@@ -6,18 +6,16 @@
              xmlns:local="clr-namespace:SearchApplication.Results"
              xmlns:Converters="clr-namespace:SearchApplication.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="601">
+             Height="40" d:DesignWidth="500" Foreground="{DynamicResource ControlDefaultForeground}">
     <UserControl.Resources>
+        <Converters:FileSizeFormatterConverter x:Key="FileSizeFormatterConverter"/>
+        <Converters:FileNameToExtensionConverter x:Key="FileNameToExtensionConverter"/>
         <Converters:IconToImageSourceConverter x:Key="IconToImageSourceConverter"/>
     </UserControl.Resources>
     <Grid>
-        <Grid Background="Transparent">
-            <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IconToImageSourceConverter}}" HorizontalAlignment="Left" Width="32" Height="32"/>
-            <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged,FallbackValue=FileExtension}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,2,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
-            
-            <TextBlock Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged, FallbackValue=FilePath}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="37,0,0,2" TextWrapping="NoWrap" VerticalAlignment="Bottom"/>
-            <TextBlock Text="{Binding FileSizeBytes, UpdateSourceTrigger=PropertyChanged, FallbackValue=FileSizeByte}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,2,62,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Right" Width="65"/>
-        </Grid>
-      
+        <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IconToImageSourceConverter}}" HorizontalAlignment="Left" Width="32" Height="32"/>
+        <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileNameToExtensionConverter}, FallbackValue=FileExtension}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,2,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
+        <TextBlock Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged, FallbackValue=FilePath}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="37,0,0,2" TextWrapping="NoWrap" VerticalAlignment="Bottom"/>
+        <TextBlock Text="{Binding FileSizeBytes, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileSizeFormatterConverter}, FallbackValue=FileSizeByte}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,2,62,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Right" Width="65"/>
     </Grid>
 </UserControl>

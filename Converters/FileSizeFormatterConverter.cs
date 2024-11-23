@@ -72,6 +72,7 @@ namespace SearchApplication.Converters
             }
 
             return $"{size:F2} {sizeUnits[unitIndex]}";
+            //ondalık kısmı 2 basamak olacak şekilde formatlanmıştır.
         }
     }
 }
