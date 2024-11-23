@@ -66,6 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\FileNameToExtensionConverter.cs" />
+    <Compile Include="Converters\FileSizeFormatterConverter.cs" />
     <Compile Include="Converters\IconToImageSourceConverter.cs" />
     <Compile Include="Files\FileType.cs" />
     <Compile Include="Results\ResultControl.xaml.cs">
