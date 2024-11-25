@@ -14,6 +14,7 @@
     </UserControl.Resources>
     <Grid>
         <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IconToImageSourceConverter}}" HorizontalAlignment="Left" Width="32" Height="32"/>
+        <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" Margin="37,2,0,0"/>
         <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileNameToExtensionConverter}, FallbackValue=FileExtension}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,2,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Right" Width="60"/>
         <TextBlock Text="{Binding FilePath, UpdateSourceTrigger=PropertyChanged, FallbackValue=FilePath}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="37,0,0,2" TextWrapping="NoWrap" VerticalAlignment="Bottom"/>
         <TextBlock Text="{Binding FileSizeBytes, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileSizeFormatterConverter}, FallbackValue=FileSizeByte}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}" Margin="0,2,62,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Top" HorizontalAlignment="Right" Width="65"/>

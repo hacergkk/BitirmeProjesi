@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SearchApplication"
+        xmlns:local="clr-namespace:SearchApplication" xmlns:results="clr-namespace:SearchApplication.Results"
         mc:Ignorable="d"
         Title="Dosya Arama Uygulaması" 
         Height="500" Width="600"
@@ -13,7 +13,7 @@
     <Grid Margin="5">
         <Grid Height="123" VerticalAlignment="Top">
             <Label Content="Dosya Ara :" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="75,0,95,0"/>
+            <TextBox Text="{Binding SearchFor, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="75,0,95,0"/>
             <Button Content="Aramayı Başlat" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
             <Label Content="Klasörü Seç :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0"/>
             <TextBox  Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="75,31,122,0" BorderThickness="1 1 0 1"/>
@@ -32,7 +32,13 @@
         
         <Grid Margin="0,123,0,0">
             <Label Content="Arama Sonucu" HorizontalAlignment="Left" Margin="1,11,0,0" VerticalAlignment="Top"/>
-            <ListBox Margin="0,46,0,39"/>
+            <ListBox ItemsSource="{Binding Results, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,46,0,39">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <results:ResultControl DataContext="{Binding}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button Content="İptal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="106" Margin="0,6,0,0" Background="{DynamicResource ControlBrightDefaultBackground}" BorderBrush="#FF4A4A4A" />
             <Button Content="Dosyanın Yolunu Kopyala" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="163" Margin="0,6,120,0" Background="#FF343434" BorderBrush="#FF4A4A4A" Foreground="#FFEBEBEB" />
         </Grid>

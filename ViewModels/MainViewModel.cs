@@ -3,6 +3,7 @@ using SearchApplication.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,10 +79,11 @@ namespace SearchApplication.ViewModels
             Results=new ObservableCollection<ResultItemViewModel>();
             Results.Add(new ResultItemViewModel()
             {
-                FileName = "Test file name.txt",
-                FilePath = @"C:\Hacer\Desktop\Test file name.txt",
+                FileName = "deneme dosyası.txt",
+                FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası.txt",
                 FileSizeBytes = 123456,
-                Selection="test"
+                Image=IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası",false,false),
+                Selection ="test"
             });
 
         }

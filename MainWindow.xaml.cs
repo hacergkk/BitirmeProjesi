@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SearchApplication.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,8 @@ namespace SearchApplication
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
 
-       
-        
     }
 }
