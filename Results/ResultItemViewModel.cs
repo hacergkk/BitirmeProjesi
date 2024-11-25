@@ -11,7 +11,12 @@ namespace SearchApplication.Results
 {
     public class ResultItemViewModel : BaseViewModel
     {
-        public Icon Icon { get; set; }
+        public Icon _image;
+        public Icon Image
+        {
+            get => _image;
+            set => RaisePropertyChanged(ref _image, value);
+        }
 
         private string _fileName;
         public string FileName
