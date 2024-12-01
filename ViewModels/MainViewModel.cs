@@ -68,10 +68,31 @@ namespace SearchApplication.ViewModels
         /// </summary>
         public ObservableCollection<ResultItemViewModel> Results { get; set; }
 
-        public ICommand SearchCommand { get; }
+        // ICommand MainWindowda tnaımlanan buton gibi değişkenlerin ViewModel ile bağlantı kurmasını sağlar.
+
+        /// <summary>
+        /// Aramayı Başlat Butonu
+        /// </summary>
+        public ICommand SearchCommand { get; } 
+
+        /// <summary>
+        /// İptal Butonu
+        /// </summary>
         public ICommand CancelSearchCommand { get; }
+
+        /// <summary>
+        /// ... Butonu klasör seçmek için
+        /// </summary>
         public ICommand SelectStartFolderCommand { get; }
+
+        /// <summary>
+        /// Dosyanın Yolunu Kopyala Butonu
+        /// </summary>
         public ICommand ExportResultsCommand { get; }
+
+        /// <summary>
+        /// Temizle Butonu
+        /// </summary>
         public ICommand ClearResultsCommand { get; }
 
         public MainViewModel()
