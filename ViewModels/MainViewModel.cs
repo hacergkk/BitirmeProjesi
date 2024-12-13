@@ -1,4 +1,6 @@
-﻿using SearchApplication.Results;
+﻿using Ookii.Dialogs.Wpf;
+using SearchApplication.Files;
+using SearchApplication.Results;
 using SearchApplication.Utilities;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SearchApplication.ViewModels
@@ -61,8 +64,18 @@ namespace SearchApplication.ViewModels
         {
             get => _caseSensitive;
             set => RaisePropertyChanged(ref _caseSensitive, value);
+        }       
+
+        private string _startFolder;
+        /// <summary>
+        /// Klasörü seç
+        /// </summary>
+        public string StartFolder
+        {
+            get => _startFolder;
+            set => RaisePropertyChanged(ref _startFolder, value);
         }
-        
+
         /// <summary>
         /// Verileri birbirine bağlamak için wpf'de bu metot tercih edilir.
         /// </summary>
@@ -107,6 +120,28 @@ namespace SearchApplication.ViewModels
                 Selection ="test"
             });
 
+        }
+
+        /// <summary>
+        /// Klasörü seç kısmına yazılan yolda dosya aramaya başlaması için gerekli kontroller sağlanır. 
+        /// </summary>
+        public void SelectStartFolderPath()
+        {
+            VistaFolderBrowserDialog fbd = new VistaFolderBrowserDialog();
+            fbd.UseDescriptionForTitle = true;
+            fbd.Description = "Aramayı başlatmak için bir klasör seçiniz.";
+            if (fbd.ShowDialog() == true)
+            {
+                if (fbd.SelectedPath.IsDirectory())
+                    StartFolder = fbd.SelectedPath;
+                else
+                    MessageBox.Show("Seçilen klasör mevcut değil.");
+            }
+        }
+
+        public void Clear()
+        {
+            Results.Clear();
         }
 
 
