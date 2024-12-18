@@ -27,5 +27,6 @@ namespace SearchApplication
             DataContext = new MainViewModel();
         }
 
+        
     }
 }

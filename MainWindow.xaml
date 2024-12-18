@@ -1,17 +1,20 @@
 ﻿<Window x:Class="SearchApplication.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"        
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"     
+        xmlns:local="clr-namespace:SearchApplication" 
+        xmlns:results="clr-namespace:SearchApplication.Results"
         xmlns:Converters="clr-namespace:SearchApplication.Converters"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        
-        xmlns:local="clr-namespace:SearchApplication" xmlns:results="clr-namespace:SearchApplication.Results"
         mc:Ignorable="d"
         Title="Dosya Arama Uygulaması" 
         Height="500" Width="600"
         MinWidth="601" MinHeight="523"
         Style="{DynamicResource CustomWindowStyle}"
         >
+    <Window.Resources>
+        <Converters:MultiBoolToEnumConverter x:Key="MultiBoolToEnumConverter"/>
+    </Window.Resources>
     <Grid Margin="5">
         <Grid Height="123" VerticalAlignment="Top">
             <Label Content="Dosya Ara :" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -24,10 +27,11 @@
 
             <Button Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
             <Label Content="Arama Türü :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,62,0,0"/>
-            <RadioButton IsChecked="{Binding SearchType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=Folders}" Content="Klasör" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top"/>
-            <RadioButton Content="Dosya" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
+            <RadioButton IsChecked="{Binding SearchType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=Folder}" Content="Klasör" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top"/>
+            <RadioButton IsChecked="{Binding SearchType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=File}" Content="Dosya" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
             <Label Content="Diğer Seçenekler :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,93,0,0"/>
-            <RadioButton Content="Büyük/Küçük Harf Duyarlı" HorizontalAlignment="Left" Margin="112,98,0,0" VerticalAlignment="Top"/>
+            <RadioButton IsChecked="{Binding CaseSensitive, UpdateSourceTrigger=PropertyChanged}" Content="Büyük/Küçük Harf Duyarlı" HorizontalAlignment="Left" Margin="112,98,0,0" VerticalAlignment="Top" />
+            <RadioButton IsChecked="{Binding IgnoreExtension, UpdateSourceTrigger=PropertyChanged}" Content="Uzantıyı Yoksay" HorizontalAlignment="Left" Margin="280,98,0,0" VerticalAlignment="Top" />
         </Grid>
         
         <Separator VerticalAlignment="Top" Margin="0,126,0,0"/>
@@ -52,11 +56,11 @@
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Bulunan Öğeler :" HorizontalAlignment="Left"/>
-                <Label Content="xxxxx" Margin="99,0,0,0" Padding="0 5 5 5"/>
+                <Label Content="{Binding Results.Count, UpdateSourceTrigger=PropertyChanged}" Margin="99,0,0,0" Padding="0 5 5 5"/>
                 <Label Content="Aranan Klasörler :" HorizontalAlignment="Left" Grid.Column="1"/>
-                <Label Content="xxxx" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="1"/>
+                <Label Content="{Binding FolderSearch, UpdateSourceTrigger=PropertyChanged}"  Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="1"/>
                 <Label Content="Aranan Dosyalar :" HorizontalAlignment="Left" Grid.Column="2"/>
-                <Label Content="xxxx" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="2"/>
+                <Label Content="{Binding FileSearch, UpdateSourceTrigger=PropertyChanged}" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="2"/>
             </Grid>
         </Grid>
     </Grid>

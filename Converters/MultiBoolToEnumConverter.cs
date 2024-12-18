@@ -9,6 +9,9 @@ using System.Windows.Data;
 
 namespace SearchApplication.Converters
 {
+    /// <summary>
+    /// Arama Türünde seçilecen maddeyi SearchType türüne çevirme işlemi yapılır.
+    /// </summary>
     public class MultiBoolToEnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
