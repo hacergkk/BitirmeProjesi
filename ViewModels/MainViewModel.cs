@@ -76,6 +76,13 @@ namespace SearchApplication.ViewModels
             set => RaisePropertyChanged(ref _startFolder, value);
         }
 
+        private SearchType _searchType;
+        public SearchType SearchType
+        {
+            get => _searchType;
+            set => RaisePropertyChanged(ref _searchType, value);
+        }
+
         /// <summary>
         /// Verileri birbirine bağlamak için wpf'de bu metot tercih edilir.
         /// </summary>
