@@ -21,11 +21,11 @@
             <TextBox Text="{Binding SearchFor, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="75,0,95,0"/>
             <Button Content="Aramayı Başlat" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
             <Label Content="Klasörü Seç :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0"/>
-            <TextBox  Padding ="4" TextWrapping="NoWrap" Text="TextBox" VerticalAlignment="Top"  Margin="75,31,122,0" BorderThickness="1 1 0 1"/>
+            <TextBox Text="{Binding StartFolder, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="75,31,122,0" BorderThickness="1 1 0 1"/>
 
             <Button Content="İptal" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Height="26" Width="90" />
 
-            <Button Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
+            <Button Command="{Binding SelectStartFolderPathCommand}" Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
             <Label Content="Arama Türü :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,62,0,0"/>
             <RadioButton IsChecked="{Binding SearchType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=Folder}" Content="Klasör" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top"/>
             <RadioButton IsChecked="{Binding SearchType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=File}" Content="Dosya" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
@@ -38,7 +38,7 @@
         
         <Grid Margin="0,123,0,0">
             <Label Content="Arama Sonucu" HorizontalAlignment="Left" Margin="1,11,0,0" VerticalAlignment="Top"/>
-            <ListBox ItemsSource="{Binding Results, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,46,0,39">
+            <ListBox ItemsSource="{Binding Results, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedResult, Mode=TwoWay}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,46,0,39">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <results:ResultControl DataContext="{Binding}"/>
@@ -46,7 +46,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button Command="{Binding ClearResultsCommand}" Content="Temizle" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="106" Margin="0,6,0,0" Background="{DynamicResource ControlBrightDefaultBackground}" BorderBrush="#FF4A4A4A" />
-            <Button Content="Dosyanın Yolunu Kopyala" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="163" Margin="0,6,120,0" Background="#FF343434" BorderBrush="#FF4A4A4A" Foreground="#FFEBEBEB" />
+            <Button Command="{Binding ExportResultsCommand}" Content="Dosyanın Yolunu Kopyala" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="163" Margin="0,6,120,0" Background="#FF343434" BorderBrush="#FF4A4A4A" Foreground="#FFEBEBEB" />
         </Grid>
         <Grid Height="33" VerticalAlignment="Bottom" Margin="0,439,0,0">
             <Grid Height="26" VerticalAlignment="Top">

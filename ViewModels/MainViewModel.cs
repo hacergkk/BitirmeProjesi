@@ -93,6 +93,14 @@ namespace SearchApplication.ViewModels
             get => _ignoreExtension;
             set => RaisePropertyChanged(ref _ignoreExtension, value);
         }
+
+        //seçilen sonuç
+        private ResultItemViewModel _selectedResult;
+        public ResultItemViewModel SelectedResult
+        {
+            get => _selectedResult;
+            set => RaisePropertyChanged(ref _selectedResult, value);
+        }
         /// <summary>
         /// Verileri birbirine bağlamak için wpf'de bu metot tercih edilir.
         /// </summary>
@@ -101,19 +109,19 @@ namespace SearchApplication.ViewModels
         // ICommand MainWindowda tnaımlanan buton gibi değişkenlerin ViewModel ile bağlantı kurmasını sağlar.
 
         /// <summary>
-        /// Aramayı Başlat Butonu
+        /// Aramayı Başlat Butonu için komutun tanımlanması
         /// </summary>
         public ICommand SearchCommand { get; }
 
         /// <summary>
-        /// İptal Butonu
+        /// İptal Butonu için komutun tanımlanması
         /// </summary>
         public ICommand CancelSearchCommand { get; }
 
         /// <summary>
-        /// ... Butonu klasör seçmek için
+        /// ... Butonu klasör seçmek için komutun tanımlanması
         /// </summary>
-        public ICommand SelectStartFolderCommand { get; }
+        public ICommand SelectStartFolderPathCommand { get; }
 
         /// <summary>
         /// Dosyanın Yolunu Kopyala Butonu
@@ -121,7 +129,7 @@ namespace SearchApplication.ViewModels
         public ICommand ExportResultsCommand { get; }
 
         /// <summary>
-        /// Temizle Butonu
+        /// Temizle Butonu için komutun tanımlanması
         /// </summary>
         public ICommand ClearResultsCommand { get; }
 
@@ -131,7 +139,8 @@ namespace SearchApplication.ViewModels
             //bu results'ı mainwindow'da Results.Count olarak bulunan öge sayımında da kullanıyoruz.
 
             ClearResultsCommand = new Command(Clear);
-
+            SelectStartFolderPathCommand = new Command(SelectStartFolderPath);
+            ExportResultsCommand = new Command(ExportResultsToFolder);
             Results.Add(new ResultItemViewModel()
             {
                 FileName = "deneme dosyası.txt",
@@ -141,17 +150,43 @@ namespace SearchApplication.ViewModels
                 Selection = "test"
             });
 
+            Results.Add(new ResultItemViewModel()
+            {
+                FileName = "deneme dosyası2.txt",
+                FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası.txt",
+                FileSizeBytes = 123456,
+                Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası", false, false),
+                Selection = "test"
+            });
+
+        }
+        public void ExportResultsToFolder()
+        {
+            if (SelectedResult != null)
+            {
+                // Seçili dosyanın yolunu kopyala
+                Clipboard.SetText(SelectedResult.FilePath);
+                MessageBox.Show("Dosya yolu kopyalandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                // Geçerli seçim yoksa uyarı göster
+                MessageBox.Show("Lütfen geçerli bir seçim yapın!", "Uyarı", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
+
         }
 
         /// <summary>
-        /// Klasörü seç kısmına yazılan yolda dosya aramaya başlaması için gerekli kontroller sağlanır. 
+        /// ...'ya tıklayarak seçilen klasörün dosya yolunun textboxta görünmesi ve atama işlemlerinin sağlanması gerçekleştirilir.
         /// </summary>
         public void SelectStartFolderPath()
         {
-            VistaFolderBrowserDialog fbd = new VistaFolderBrowserDialog();
+            VistaFolderBrowserDialog fbd = new VistaFolderBrowserDialog(); // Klasör seçimi için bir dialog oluşturulur.
+            // Dialog başlığı için açıklama ayarlanır.
             fbd.UseDescriptionForTitle = true;
             fbd.Description = "Aramayı başlatmak için bir klasör seçiniz.";
-            if (fbd.ShowDialog() == true)
+            if (fbd.ShowDialog() == true) //Eğer kullanıcı "klasör seç"'e tıklarsa true döner.
             {
                 if (fbd.SelectedPath.IsDirectory())
                     StartFolder = fbd.SelectedPath;
@@ -215,6 +250,11 @@ namespace SearchApplication.ViewModels
 
             return null;
         }
+
+        /// <summary>
+        /// Sonucun listbox'a eklenmesi için gerekli metodu çağırır.
+        /// </summary>
+        /// <param name="result"></param>
         public void AddResultAsync(ResultItemViewModel result)
         {
             Application.Current?.Dispatcher?.Invoke(() =>
