@@ -15,7 +15,7 @@ using System.Windows.Input;
 
 namespace SearchApplication.ViewModels
 {
-    public class MainViewModel:BaseViewModel
+    public class MainViewModel : BaseViewModel
     {
         private string _searchFor;
         /// <summary>
@@ -46,7 +46,7 @@ namespace SearchApplication.ViewModels
             get => _folderSearch;
             set => RaisePropertyChanged(ref _folderSearch, value);
         }
-        
+
         private SearchType _fileSearch;
         /// <summary>
         /// Arama Türü - Dosya
@@ -56,7 +56,7 @@ namespace SearchApplication.ViewModels
             get => _fileSearch;
             set => RaisePropertyChanged(ref _fileSearch, value);
         }
-        
+
         private bool _caseSensitive;
         /// <summary>
         /// Diğer Seçenekler -> Büyük/Küçük Harf Duyarlı
@@ -65,7 +65,7 @@ namespace SearchApplication.ViewModels
         {
             get => _caseSensitive;
             set => RaisePropertyChanged(ref _caseSensitive, value);
-        }       
+        }
 
         private string _startFolder;
         /// <summary>
@@ -103,7 +103,7 @@ namespace SearchApplication.ViewModels
         /// <summary>
         /// Aramayı Başlat Butonu
         /// </summary>
-        public ICommand SearchCommand { get; } 
+        public ICommand SearchCommand { get; }
 
         /// <summary>
         /// İptal Butonu
@@ -127,16 +127,18 @@ namespace SearchApplication.ViewModels
 
         public MainViewModel()
         {
-            Results=new ObservableCollection<ResultItemViewModel>();
+            Results = new ObservableCollection<ResultItemViewModel>();
             //bu results'ı mainwindow'da Results.Count olarak bulunan öge sayımında da kullanıyoruz.
+
+            ClearResultsCommand = new Command(Clear);
 
             Results.Add(new ResultItemViewModel()
             {
                 FileName = "deneme dosyası.txt",
                 FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası.txt",
                 FileSizeBytes = 123456,
-                Image=IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası",false,false),
-                Selection ="test"
+                Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası", false, false),
+                Selection = "test"
             });
 
         }
@@ -232,7 +234,7 @@ namespace SearchApplication.ViewModels
         /// <param name="path"></param>
         /// <param name="selection"></param>
         public void ResultFound(string path, string selection)
-        {           
+        {
             ResultItemViewModel result = CreateResultFromPath(path, selection);
             if (result != null)
                 AddResultAsync(result);
@@ -246,7 +248,7 @@ namespace SearchApplication.ViewModels
         /// <returns></returns>
         public bool SearchFileName(string name, string searchText)
         {
-           
+
             string fPath = CaseSensitive ? name : name.ToLower();
             if (GetFileName(fPath).Contains(searchText))
             {
