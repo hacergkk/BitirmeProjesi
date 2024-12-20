@@ -32,6 +32,7 @@
             <Label Content="Diğer Seçenekler :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,93,0,0"/>
             <RadioButton IsChecked="{Binding CaseSensitive, UpdateSourceTrigger=PropertyChanged}" Content="Büyük/Küçük Harf Duyarlı" HorizontalAlignment="Left" Margin="112,98,0,0" VerticalAlignment="Top" />
             <RadioButton IsChecked="{Binding IgnoreExtension, UpdateSourceTrigger=PropertyChanged}" Content="Uzantıyı Yoksay" HorizontalAlignment="Left" Margin="280,98,0,0" VerticalAlignment="Top" />
+            <RadioButton  IsChecked="{Binding SearchRecursive, UpdateSourceTrigger=PropertyChanged}" Content="Kapsamlı Arama" HorizontalAlignment="Left" Margin="400,98,0,0" VerticalAlignment="Top" />
         </Grid>
         
         <Separator VerticalAlignment="Top" Margin="0,126,0,0"/>

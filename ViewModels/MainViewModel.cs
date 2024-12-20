@@ -69,7 +69,7 @@ namespace SearchApplication.ViewModels
 
         private string _startFolder;
         /// <summary>
-        /// Klasörü seç
+        /// Klasörü seç-başlangıç klasörü
         /// </summary>
         public string StartFolder
         {
@@ -94,7 +94,7 @@ namespace SearchApplication.ViewModels
             set => RaisePropertyChanged(ref _ignoreExtension, value);
         }
 
-        //seçilen sonuç
+        //seçilen sonuç değerini tutar.
         private ResultItemViewModel _selectedResult;
         public ResultItemViewModel SelectedResult
         {
@@ -103,7 +103,8 @@ namespace SearchApplication.ViewModels
         }
 
         /// <summary>
-        /// Şuan arama yapılıyor mu?
+        /// İptal'e basıldığında aramanın durdurulması için tanımlanmıştır.
+        /// Aramaya başlamadan önce bu değer true yapılır. İptal'e tıklanıldığında false yapılır.
         /// </summary>
         private bool _isSearching;
         public bool IsSearching
@@ -111,7 +112,15 @@ namespace SearchApplication.ViewModels
             get => _isSearching;
             set => RaisePropertyChanged(ref _isSearching, value);
         }
-
+        private bool _searchRecursive;
+        /// <summary>
+        /// Kapsamlı arama seçilmiştir. Seçilmemişse sadece o klasör incelenilir. Alt klasörler incelenilmez.
+        /// </summary>
+        public bool SearchRecursive
+        {
+            get => _searchRecursive;
+            set => RaisePropertyChanged(ref _searchRecursive, value);
+        }
         /// <summary>
         /// Verileri birbirine bağlamak için wpf'de bu metot tercih edilir.
         /// </summary>
@@ -169,8 +178,19 @@ namespace SearchApplication.ViewModels
                 Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası", false, false),
                 Selection = "test"
             });
+            Results.Add(new ResultItemViewModel()
+            {
+                FileName = "Bitirme Projesi 1",
+                FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1",
+                FileSizeBytes = 123456,
+                Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1", false, true),
+                Selection = "test"
+            });
 
         }
+        /// <summary>
+        /// Dosyanın/klasörün yolunu kopyalamak için kullanılır.
+        /// </summary>
         public void ExportResultsToFolder()
         {
             if (SelectedResult != null)
@@ -203,7 +223,9 @@ namespace SearchApplication.ViewModels
                     MessageBox.Show("Seçilen klasör mevcut değil.");
             }
         }
-
+        /// <summary>
+        /// Sonuçları temizlemek için kullanılır.
+        /// </summary>
         public void Clear()
         {
             Results.Clear();
@@ -322,10 +344,18 @@ namespace SearchApplication.ViewModels
                 return Path.GetFileName(original);  // Dosyanın adını ve uzantısını döndür.
         }
 
+        /// <summary>
+        /// IsSearching değişkeninin değeri değiştirilir.
+        /// </summary>
+        /// <param name="isSearching"></param>
         public void SetSearchingStatus(bool isSearching)
         {
             IsSearching = isSearching;
         }
+
+        /// <summary>
+        /// Arama durdurulur. İptal butonuna basılmıştır.
+        /// </summary>
         public void CancelSearch()
         {
             SetSearchingStatus(false);
@@ -342,22 +372,11 @@ namespace SearchApplication.ViewModels
             {
                 case SearchType.File:
                     {
-                        // In order to search recursively you need to basically run
-                        // A function from within itself (so void s(), inside that
-                        // it will run s() at some point.
-
-                        // I will make a local method to simplify this
-
                         void DirectorySearch(string toSearchDir)
                         {
-                            // This will loop through every folder and then do the same thing
-                            // For subfolders and so on indefinitely until there's no
-                            // more sub folders
-
                             foreach (string folder in Directory.GetDirectories(toSearchDir))
                             {
-                                // Cancel search if needed
-                                if (!IsSearching) return;
+                                if (!IsSearching) return; //Arama sırasında iptal'e basılmışsa arama sonlandırılır.
 
                                 foreach (string file in Directory.GetFiles(folder))
                                 {
@@ -368,15 +387,12 @@ namespace SearchApplication.ViewModels
 
                                 FolderSearched++;
 
-                                // This is what makes this run recursively, the fact you
-                                // can the same function in the same function... sort of
                                 DirectorySearch(folder);
                             }
                         }
 
                         DirectorySearch(startFolder);
 
-                        // Also need to search through every file in the start folders too...
                         foreach (string file in Directory.GetFiles(startFolder))
                         {
                             if (!IsSearching) return;
@@ -388,16 +404,16 @@ namespace SearchApplication.ViewModels
 
                 case SearchType.Folder:
                     {
+
                         void DirectorySearch(string toSearchDir)
                         {
                             foreach (string folder in Directory.GetDirectories(toSearchDir))
                             {
-                                // Cancel search if needed
-                                if (!IsSearching) return;
+                                if (!IsSearching) return; //Arama sırasında iptal'e basılmışsa arama sonlandırılır.
 
                                 SearchFolderName(folder, searchText);
 
-                                DirectorySearch(folder);
+                                DirectorySearch(folder);//Alt klasör için arama devam eder. Bu yüzden recursive olarak metodu tekrar çağırır.
                             }
                         }
 
@@ -408,17 +424,18 @@ namespace SearchApplication.ViewModels
         }
         public bool SearchFolderName(string name, string searchText)
         {
-            string dPath = CaseSensitive ? name : name.ToLower();
+            string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.
             if (dPath.GetDirectoryName().Contains(searchText))
             {
-                ResultFound(dPath, searchText);
-                FolderSearched++;
+                ResultFound(dPath, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
+                FolderSearched++; //Aranan klasör sayısı arttırılır.
                 return true;
             }
 
-            FolderSearched++;
+            FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
             return false;
         }
+
 
     }
 }
