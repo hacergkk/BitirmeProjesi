@@ -37,21 +37,21 @@ namespace SearchApplication.ViewModels
             set => RaisePropertyChanged(ref _selectFolder, value);
         }
 
-        private SearchType _folderSearched;
+        private int _folderSearched;
         /// <summary>
         /// Arama Türü - Klasör
         /// </summary>
-        public SearchType FolderSearched
+        public int FolderSearched
         {
             get => _folderSearched;
             set => RaisePropertyChanged(ref _folderSearched, value);
         }
 
-        private SearchType _fileSearched;
+        private int _fileSearched;
         /// <summary>
         /// Arama Türü - Dosya
         /// </summary>
-        public SearchType FileSearched
+        public int FileSearched
         {
             get => _fileSearched;
             set => RaisePropertyChanged(ref _fileSearched, value);
@@ -104,7 +104,8 @@ namespace SearchApplication.ViewModels
 
         /// <summary>
         /// İptal'e basıldığında aramanın durdurulması için tanımlanmıştır.
-        /// Aramaya başlamadan önce bu değer true yapılır. İptal'e tıklanıldığında false yapılır.
+        /// Aramaya başlandığında bu değer InvertBoolConverter sayesinde true yapılır. 
+        /// İptal'e tıklanıldığında false yapılır.
         /// </summary>
         private bool _isSearching;
         public bool IsSearching
@@ -162,6 +163,8 @@ namespace SearchApplication.ViewModels
             SelectStartFolderPathCommand = new Command(SelectStartFolderPath);
             ExportResultsCommand = new Command(ExportResultsToFolder);
             CancelSearchCommand = new Command(CancelSearch);
+            SearchCommand = new Command(Find);
+
             Results.Add(new ResultItemViewModel()
             {
                 FileName = "deneme dosyası.txt",
@@ -432,7 +435,7 @@ namespace SearchApplication.ViewModels
         /// <returns></returns>
         public bool SearchFolderName(string name, string searchText)
         {
-            string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.
+            string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.            
             if (dPath.GetDirectoryName().Contains(searchText))
             {
                 ResultFound(dPath, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
@@ -458,8 +461,7 @@ namespace SearchApplication.ViewModels
             try
             {                
                 CancelSearch(); //O an başka bir arama varsa o durdurulur.
-                ClearSearchCounters(); //Sayaçlar sıfırlanılır.
-                Clear();
+                ClearSearchCounters(); //Sayaçlar sıfırlanılır.                
 
                 if (!string.IsNullOrEmpty(SearchFor)) //Aranılacak dosya/klasör
                 {

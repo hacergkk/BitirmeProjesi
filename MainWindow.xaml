@@ -60,9 +60,9 @@
                 <Label Content="Bulunan Öğeler :" HorizontalAlignment="Left"/>
                 <Label Content="{Binding Results.Count, UpdateSourceTrigger=PropertyChanged}" Margin="99,0,0,0" Padding="0 5 5 5"/>
                 <Label Content="Aranan Klasörler :" HorizontalAlignment="Left" Grid.Column="1"/>
-                <Label Content="{Binding FolderSearch, UpdateSourceTrigger=PropertyChanged}"  Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="1"/>
+                <Label Content="{Binding FolderSearched, UpdateSourceTrigger=PropertyChanged}"  Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="1"/>
                 <Label Content="Aranan Dosyalar :" HorizontalAlignment="Left" Grid.Column="2"/>
-                <Label Content="{Binding FileSearch, UpdateSourceTrigger=PropertyChanged}" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="2"/>
+                <Label Content="{Binding FileSearched, UpdateSourceTrigger=PropertyChanged}" Margin="103,0,0,0" Padding="0 5 5 5" Grid.Column="2"/>
             </Grid>
         </Grid>
     </Grid>
