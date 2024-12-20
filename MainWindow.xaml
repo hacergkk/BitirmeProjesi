@@ -14,16 +14,17 @@
         >
     <Window.Resources>
         <Converters:MultiBoolToEnumConverter x:Key="MultiBoolToEnumConverter"/>
+        <Converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
     </Window.Resources>
     <Grid Margin="5">
         <Grid Height="123" VerticalAlignment="Top">
-            <Label Content="Dosya Ara :" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <TextBox Text="{Binding SearchFor, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="75,0,95,0"/>
-            <Button Content="Aramayı Başlat" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
+            <Label Content="Arama Metni :" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <TextBox Text="{Binding SearchFor, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="82,0,95,0"/>
+            <Button Command="{Binding SearchCommand}" IsEnabled="{Binding IsSearching, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertBoolConverter}}" Content="Aramayı Başlat" HorizontalAlignment="Right"  VerticalAlignment="Top" Height="26" Width="90"/>
             <Label Content="Klasörü Seç :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,31,0,0"/>
-            <TextBox Text="{Binding StartFolder, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="75,31,122,0" BorderThickness="1 1 0 1"/>
+            <TextBox Text="{Binding StartFolder, UpdateSourceTrigger=PropertyChanged}" Padding ="4" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="82,31,122,0" BorderThickness="1 1 0 1"/>
 
-            <Button Content="İptal" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Height="26" Width="90" />
+            <Button Command="{Binding CancelCommand}" Content="İptal" HorizontalAlignment="Right" Margin="0,31,0,0" VerticalAlignment="Top" Height="26" Width="90" />
 
             <Button Command="{Binding SelectStartFolderPathCommand}" Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
             <Label Content="Arama Türü :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,62,0,0"/>

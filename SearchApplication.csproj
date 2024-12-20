@@ -84,6 +84,7 @@
     <Compile Include="Converters\FileNameToExtensionConverter.cs" />
     <Compile Include="Converters\FileSizeFormatterConverter.cs" />
     <Compile Include="Converters\IconToImageSourceConverter.cs" />
+    <Compile Include="Converters\InvertBoolConverter.cs" />
     <Compile Include="Converters\MultiBoolToEnumConverter.cs" />
     <Compile Include="Files\FileHelper.cs" />
     <Compile Include="Files\FileType.cs" />

@@ -161,6 +161,7 @@ namespace SearchApplication.ViewModels
             ClearResultsCommand = new Command(Clear);
             SelectStartFolderPathCommand = new Command(SelectStartFolderPath);
             ExportResultsCommand = new Command(ExportResultsToFolder);
+            CancelSearchCommand = new Command(CancelSearch);
             Results.Add(new ResultItemViewModel()
             {
                 FileName = "deneme dosyası.txt",
@@ -422,6 +423,13 @@ namespace SearchApplication.ViewModels
                     break;                             
             }
         }
+
+        /// <summary>
+        /// Klasör arama 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         public bool SearchFolderName(string name, string searchText)
         {
             string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.
@@ -436,6 +444,52 @@ namespace SearchApplication.ViewModels
             return false;
         }
 
+        /// <summary>
+        /// Aranan/bulunan sayaçlarını sıfırlama
+        /// </summary>
+        public void ClearSearchCounters()
+        {
+            FileSearched = 0;
+            FolderSearched = 0;
+            //Bulunan ögeler zaten listbox'taki eleman sayısı olduğundan o otomatik sıfırlanılır.
+        }
+        public void Find()
+        {
+            try
+            {                
+                CancelSearch(); //O an başka bir arama varsa o durdurulur.
+                ClearSearchCounters(); //Sayaçlar sıfırlanılır.
+                Clear();
+
+                if (!string.IsNullOrEmpty(SearchFor)) //Aranılacak dosya/klasör
+                {
+                    if (StartFolder.IsDirectory())
+                    {
+                        Clear();
+                        SetSearchingStatus(true);
+
+                        Task.Run(() =>
+                        {
+                            string searchText = CaseSensitive ? SearchFor : SearchFor.ToLower();
+
+                            if (SearchRecursive)
+                            {
+                                StartSearchRecursively(searchText);
+                            }
+
+                            else
+                            {
+                                //StartSearchNonRecursively(searchText);
+                                //Recursive olmayan arama kodlanacak.
+                            }
+
+                            SetSearchingStatus(false);
+                        });
+                    }
+                }
+            }
+            catch (Exception e) { MessageBox.Show($"{e.Message} -- Cancelling Search"); CancelSearch(); }
+        }
 
     }
 }
