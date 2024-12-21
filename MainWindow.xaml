@@ -48,7 +48,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button Command="{Binding ClearResultsCommand}" Content="Temizle" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="106" Margin="0,6,0,0" Background="{DynamicResource ControlBrightDefaultBackground}" BorderBrush="#FF4A4A4A" />
-            <Button Command="{Binding ExportResultsCommand}" Content="Dosyanın Yolunu Kopyala" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="163" Margin="0,6,120,0" Background="#FF343434" BorderBrush="#FF4A4A4A" Foreground="#FFEBEBEB" />
+            <Button Command="{Binding CopyPathCommand}" Content="Dosyanın Yolunu Kopyala" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="163" Margin="0,6,120,0" Background="#FF343434" BorderBrush="#FF4A4A4A" Foreground="#FFEBEBEB" />
         </Grid>
         <Grid Height="33" VerticalAlignment="Bottom" Margin="0,439,0,0">
             <Grid Height="26" VerticalAlignment="Top">

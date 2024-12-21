@@ -27,16 +27,6 @@ namespace SearchApplication.ViewModels
             set => RaisePropertyChanged(ref _searchFor, value);
         }
 
-        private string _selectFolder;
-        /// <summary>
-        /// Klasörü Seç
-        /// </summary>
-        public string SelectFolder
-        {
-            get => _selectFolder;
-            set => RaisePropertyChanged(ref _selectFolder, value);
-        }
-
         private int _folderSearched;
         /// <summary>
         /// Arama Türü - Klasör
@@ -137,7 +127,7 @@ namespace SearchApplication.ViewModels
         /// <summary>
         /// Dosyanın Yolunu Kopyala Butonu
         /// </summary>
-        public ICommand ExportResultsCommand { get; }
+        public ICommand CopyPathCommand { get; }
 
         /// <summary>
         /// Temizle Butonu için komutun tanımlanması
@@ -151,7 +141,7 @@ namespace SearchApplication.ViewModels
 
             ClearResultsCommand = new Command(Clear);
             SelectStartFolderPathCommand = new Command(SelectStartFolderPath);
-            ExportResultsCommand = new Command(ExportResultsToFolder);
+            CopyPathCommand = new Command(CopyPath);
             CancelSearchCommand = new Command(CancelSearch);
             SearchCommand = new Command(Find);
 
@@ -185,7 +175,7 @@ namespace SearchApplication.ViewModels
         /// <summary>
         /// Dosyanın/klasörün yolunu kopyalamak için kullanılır.
         /// </summary>
-        public void ExportResultsToFolder()
+        public void CopyPath()
         {
             if (SelectedResult != null)
             {
