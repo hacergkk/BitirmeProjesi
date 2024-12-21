@@ -29,7 +29,7 @@
             <Button Command="{Binding SelectStartFolderPathCommand}" Content="..." HorizontalAlignment="Right"  Margin="0,31,95,0" VerticalAlignment="Top" Height="26" Width="27" />
             <Label Content="Arama Türü :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,62,0,0"/>
             <CheckBox IsChecked="{Binding SearchOption, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=Folder}" Content="Klasör" HorizontalAlignment="Left" Margin="86,65,0,0" VerticalAlignment="Top"/>
-            <RadioButton IsChecked="{Binding SearchOption, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=File}" Content="Dosya" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
+            <CheckBox IsChecked="{Binding SearchOption, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=File}" Content="Dosya" HorizontalAlignment="Left" Margin="150,65,0,0" VerticalAlignment="Top"/>
             <Label Content="Diğer Seçenekler :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,93,0,0"/>
             <CheckBox IsChecked="{Binding CaseSensitive, UpdateSourceTrigger=PropertyChanged}" Content="Büyük/Küçük Harf Duyarlı" HorizontalAlignment="Left" Margin="112,98,0,0" VerticalAlignment="Top" />
             <CheckBox IsChecked="{Binding IgnoreExtension, UpdateSourceTrigger=PropertyChanged}" Content="Uzantıyı Yoksay" HorizontalAlignment="Left" Margin="280,98,0,0" VerticalAlignment="Top" />

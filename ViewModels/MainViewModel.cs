@@ -324,15 +324,41 @@ namespace SearchApplication.ViewModels
         public bool SearchFileName(string name, string searchText)
         {
 
-            string fPath = CaseSensitive ? name : name.ToLower();
-            if (GetFileName(fPath).Contains(searchText))
+            //string fPath = CaseSensitive ? name : name.ToLower();
+            //if (GetFileName(fPath).Contains(searchText))
+            //{
+            //    ResultFound(fPath, searchText);
+            //    FileSearched++; //Aranan dosya sayısı 1 arttırılır.
+            //    return true;
+            //}
+            //FileSearched++; //Aranan dosya sayısı 1 arttırılır.
+            //return false;
+
+            if (!CaseSensitive)
             {
-                ResultFound(fPath, searchText);
-                FileSearched++; //Aranan dosya sayısı 1 arttırılır.
-                return true;
+                string filename = name.GetFileName();
+                if (filename.ToLower().Contains(searchText.ToLower()))
+                {
+                    ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
+                    FileSearched++; //Aranan klasör sayısı arttırılır.
+                    return true;
+                }
+                FileSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
+                return false;
             }
-            FileSearched++; //Aranan dosya sayısı 1 arttırılır.
-            return false;
+            else
+            {
+                if (name.GetFileName().Contains(searchText))
+                {
+                    ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
+                    FileSearched++; //Aranan klasör sayısı arttırılır.
+                    return true;
+                }
+
+                FileSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
+                return false;
+            }
+
         }
 
         /// <summary>
@@ -423,7 +449,7 @@ namespace SearchApplication.ViewModels
 
                         DirectorySearch(startFolder);
                     }
-                    break;                             
+                    break;
             }
         }
 
@@ -435,16 +461,58 @@ namespace SearchApplication.ViewModels
         /// <returns></returns>
         public bool SearchFolderName(string name, string searchText)
         {
-            string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.            
-            if (dPath.GetDirectoryName().Contains(searchText))
+            if (!CaseSensitive)
             {
-                ResultFound(dPath, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
-                FolderSearched++; //Aranan klasör sayısı arttırılır.
-                return true;
+                string foldername = name.GetDirectoryName();
+                if (foldername.ToLower().Contains(searchText.ToLower()))
+                {
+                    ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
+                    FolderSearched++; //Aranan klasör sayısı arttırılır.
+                    return true;
+                }
+                FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
+                return false;
+            }
+            else
+            {
+                if (name.GetDirectoryName().Contains(searchText))
+                {
+                    ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
+                    FolderSearched++; //Aranan klasör sayısı arttırılır.
+                    return true;
+                }
+
+                FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
+                return false;
             }
 
-            FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
-            return false;
+            //if (!CaseSensitive) //Varsaıylan seçilmemiş değeri false'dur. Eğer seçilmemişse büyük/küçük harf duyarlı olmasın.
+            //{
+            //    if (name.GetDirectoryName().Contains(searchText))
+            //    {
+            //        // if (name.GetDirectoryName().ToLower == searchText.ToLower)
+            //        // {
+            //        //     ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
+            //        //     FolderSearched++; //Aranan klasör sayısı arttırılır.
+            //        //     return true;
+            //        // }
+            //        ////return false;
+            //    }
+
+            //    FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
+            //    return false;
+            //}
+            //else
+            //{
+                // string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.            
+               
+            //}
+
+
+        }
+        public bool CaseSensitiveValue()
+        {
+            return CaseSensitive;
         }
 
         /// <summary>
@@ -459,7 +527,7 @@ namespace SearchApplication.ViewModels
         public void Find()
         {
             try
-            {                
+            {
                 CancelSearch(); //O an başka bir arama varsa o durdurulur.
                 ClearSearchCounters(); //Sayaçlar sıfırlanılır.                
 
