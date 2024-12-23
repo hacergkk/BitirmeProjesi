@@ -144,33 +144,6 @@ namespace SearchApplication.ViewModels
             CopyPathCommand = new Command(CopyPath);
             CancelSearchCommand = new Command(CancelSearch);
             SearchCommand = new Command(Find);
-
-            Results.Add(new ResultItemViewModel()
-            {
-                FileName = "deneme dosyası.txt",
-                FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası.txt",
-                FileSizeBytes = 123456,
-                Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası", false, false),
-                Selection = "test"
-            });
-
-            Results.Add(new ResultItemViewModel()
-            {
-                FileName = "deneme dosyası2.txt",
-                FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası.txt",
-                FileSizeBytes = 123456,
-                Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1\deneme dosyası", false, false),
-                Selection = "test"
-            });
-            Results.Add(new ResultItemViewModel()
-            {
-                FileName = "Bitirme Projesi 1",
-                FilePath = @"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1",
-                FileSizeBytes = 123456,
-                Image = IconHelper.GetIconOfFile(@"C:\Users\HACER\Universite\7.YARIYIL\Bitirme Projesi 1", false, true),
-                Selection = "test"
-            });
-
         }
         /// <summary>
         /// Dosyanın/klasörün yolunu kopyalamak için kullanılır.
