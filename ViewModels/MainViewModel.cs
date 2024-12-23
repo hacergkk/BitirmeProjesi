@@ -457,8 +457,7 @@ namespace SearchApplication.ViewModels
 
                             else
                             {
-                                //StartSearchNonRecursively(searchText);
-                                //Recursive olmayan arama kodlanacak.
+                                StartSearchNonRecursively(searchText);
                             }
 
                             SetSearchingStatus(false);
@@ -491,13 +490,6 @@ namespace SearchApplication.ViewModels
             }
 
             DirectorySearch(startFolder);
-
-            foreach (string file in Directory.GetFiles(startFolder))
-            {
-                if (!IsSearching) return;
-
-                SearchFileName(file, searchText);
-            }
         }
         public void RecursiveFolderSearch(string startFolder, string searchText)
         {
@@ -514,6 +506,53 @@ namespace SearchApplication.ViewModels
             }
 
             DirectorySearch(startFolder);
+        }
+        public void NonRecursiveFolderSearch(string startFolder, string searchText)
+        {
+            void DirectorySearch(string toSearchDir)
+            {
+                foreach (string folder in Directory.GetDirectories(toSearchDir))
+                {
+                    if (!IsSearching) return; //Arama sırasında iptal'e basılmışsa arama sonlandırılır.
+
+                    SearchFolderName(folder, searchText);
+                }
+            }
+
+            DirectorySearch(startFolder);
+        }
+        public void NonRecursiveFileSearch(string startFolder, string searchText)
+        {            
+            foreach (string file in Directory.GetFiles(startFolder))
+            {
+                if (!IsSearching) return;
+
+                SearchFileName(file, searchText);
+            }
+        }
+        public void StartSearchNonRecursively(string searchText)
+        {
+            string startFolder = StartFolder;
+            switch (SearchOption)
+            {
+                case SearchType.File:
+                    {
+                        NonRecursiveFileSearch(startFolder, searchText);
+                    }
+                    break;
+
+                case SearchType.Folder:
+                    {
+                        NonRecursiveFolderSearch(startFolder, searchText);
+                    }
+                    break;
+                case SearchType.All:
+                    {
+                        NonRecursiveFileSearch(startFolder, searchText);
+                        NonRecursiveFolderSearch(startFolder, searchText);
+                    }
+                    break;
+            }
         }
     }
 }
