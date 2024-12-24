@@ -59,5 +59,6 @@ namespace SearchApplication.Files
         {
             return path.IsDirectory() ? new DirectoryInfo(path).Name : "";
         }
+
     }
 }

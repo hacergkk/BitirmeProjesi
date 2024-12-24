@@ -38,8 +38,7 @@
 
             <RadioButton Name="ByExtensionRadioButton" IsChecked="{Binding SearchOption, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=ByExtension}" Content="Uzantıya Göre" HorizontalAlignment="Left" Margin="275,65,0,0" VerticalAlignment="Top"/>
             <TextBox Visibility="{Binding IsChecked, ElementName=ByExtensionRadioButton, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding EntryExtension, UpdateSourceTrigger=PropertyChanged}" Padding="2" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="385,65,115,0" BorderThickness="1 1 1 1" />
-           
-           
+                      
         </Grid>
         
         <Separator VerticalAlignment="Top" Margin="0,126,0,0"/>

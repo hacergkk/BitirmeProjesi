@@ -298,19 +298,10 @@ namespace SearchApplication.ViewModels
         public bool SearchFileName(string name, string searchText)
         {
 
-            //string fPath = CaseSensitive ? name : name.ToLower();
-            //if (GetFileName(fPath).Contains(searchText))
-            //{
-            //    ResultFound(fPath, searchText);
-            //    FileSearched++; //Aranan dosya sayısı 1 arttırılır.
-            //    return true;
-            //}
-            //FileSearched++; //Aranan dosya sayısı 1 arttırılır.
-            //return false;
-
             if (!CaseSensitive)
             {
                 string filename = name.GetFileName();
+               
                 if (filename.ToLower().Contains(searchText.ToLower()))
                 {
                     ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
@@ -334,7 +325,6 @@ namespace SearchApplication.ViewModels
             }
 
         }
-
 
         /// <summary>
         /// IsSearching değişkeninin değeri değiştirilir.
@@ -379,6 +369,10 @@ namespace SearchApplication.ViewModels
                         RecursiveFolderSearch(startFolder, searchText);
                     }
                     break;
+                case SearchType.ByExtension: {
+                        RecursiveFileSearchByExtension(startFolder, searchText);
+                    }
+                    break;
             }
         }
 
@@ -414,34 +408,6 @@ namespace SearchApplication.ViewModels
                 FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
                 return false;
             }
-
-            //if (!CaseSensitive) //Varsaıylan seçilmemiş değeri false'dur. Eğer seçilmemişse büyük/küçük harf duyarlı olmasın.
-            //{
-            //    if (name.GetDirectoryName().Contains(searchText))
-            //    {
-            //        // if (name.GetDirectoryName().ToLower == searchText.ToLower)
-            //        // {
-            //        //     ResultFound(name, searchText); //Sonuç bulunduğu için listbox'a ekleme metodu çağrılır.
-            //        //     FolderSearched++; //Aranan klasör sayısı arttırılır.
-            //        //     return true;
-            //        // }
-            //        ////return false;
-            //    }
-
-            //    FolderSearched++; //Eğer bulamamışsa bile o klasörü aradığından; aranan klasör sayısı arttırılır.
-            //    return false;
-            //}
-            //else
-            //{
-                // string dPath = CaseSensitive ? name : name.ToLower(); //eğer büyük küçük harf duyarlı değilse hepsini küçük baz alır.            
-               
-            //}
-
-
-        }
-        public bool CaseSensitiveValue()
-        {
-            return CaseSensitive;
         }
 
         /// <summary>
@@ -453,6 +419,10 @@ namespace SearchApplication.ViewModels
             FolderSearched = 0;
             //Bulunan ögeler zaten listbox'taki eleman sayısı olduğundan o otomatik sıfırlanılır.
         }
+
+        /// <summary>
+        /// Dosya7klasör bulmak için ilk çlışan mettottur. Aramayı başlat butonuna basıldığında bu metot çalışır.
+        /// </summary>
         public void Find()
         {
             try
@@ -489,6 +459,11 @@ namespace SearchApplication.ViewModels
             catch (Exception e) { MessageBox.Show($"{e.Message} -- Cancelling Search"); CancelSearch(); }
         }
 
+        /// <summary>
+        /// Recursive dosya arama
+        /// </summary>
+        /// <param name="startFolder"></param>
+        /// <param name="searchText"></param>
         public void RecursiveFileSearch(string startFolder,string searchText)
         {
             void DirectorySearch(string toSearchDir)
@@ -512,6 +487,12 @@ namespace SearchApplication.ViewModels
 
             DirectorySearch(startFolder);
         }
+
+        /// <summary>
+        /// Recursive klasör arama
+        /// </summary>
+        /// <param name="startFolder"></param>
+        /// <param name="searchText"></param>
         public void RecursiveFolderSearch(string startFolder, string searchText)
         {
             void DirectorySearch(string toSearchDir)
@@ -528,6 +509,12 @@ namespace SearchApplication.ViewModels
 
             DirectorySearch(startFolder);
         }
+
+        /// <summary>
+        /// Recursive olmayan klasör arama
+        /// </summary>
+        /// <param name="startFolder"></param>
+        /// <param name="searchText"></param>
         public void NonRecursiveFolderSearch(string startFolder, string searchText)
         {
             void DirectorySearch(string toSearchDir)
@@ -542,6 +529,12 @@ namespace SearchApplication.ViewModels
 
             DirectorySearch(startFolder);
         }
+
+        /// <summary>
+        /// Recursive olmayan dosya arama
+        /// </summary>
+        /// <param name="startFolder"></param>
+        /// <param name="searchText"></param>
         public void NonRecursiveFileSearch(string startFolder, string searchText)
         {            
             foreach (string file in Directory.GetFiles(startFolder))
@@ -550,7 +543,10 @@ namespace SearchApplication.ViewModels
 
                 SearchFileName(file, searchText);
             }
-        }
+        }        /// <summary>
+        /// Recursive olmayan arama için gerekli metotların çağrılması
+        /// </summary>
+        /// <param name="searchText"></param>
         public void StartSearchNonRecursively(string searchText)
         {
             string startFolder = StartFolder;
@@ -573,7 +569,103 @@ namespace SearchApplication.ViewModels
                         NonRecursiveFolderSearch(startFolder, searchText);
                     }
                     break;
+                case SearchType.ByExtension: 
+                    {
+                        NonRecursiveFileSearchByExtension(startFolder, searchText);
+                    }
+                    break;
             }
         }
+
+        /// <summary>
+        /// Kullanıcının aradığı uzantıyı döndürür.
+        /// </summary>
+        /// <returns></returns>
+        public string GetEntryExtension()
+        {
+            string extension = EntryExtension;
+            if (extension.StartsWith("."))
+                return extension;
+            else return "."+extension;
+        }
+       
+        public string GetFileExtension(string path) 
+        { 
+            string ext = Path.GetExtension(path);
+            return ext;
+        }
+
+        /// <summary>
+        /// Kullanıcının girdiği uzantı ile şuan incelenilen dosyanın uzantısının aynı olup olmadığını kontrol eder.
+        /// </summary>
+        /// <param name="RequiredExtension"></param>
+        /// <param name="currentFileExtension"></param>
+        /// <returns></returns>
+        public bool IsEqualExtension(string path)
+        {
+            string RequiredExtension= GetEntryExtension(); //kullanıcının girdiği uzantı
+            string CurrentFileExtension = GetFileExtension(path); //dosyanın uzantısı
+
+            if (RequiredExtension.Equals(CurrentFileExtension)) return true;
+            return false;
+
+        }
+
+        public void NonRecursiveFileSearchByExtension(string startFolder, string searchText)
+        {
+            foreach (string file in Directory.GetFiles(startFolder))
+            {
+                if (!IsSearching) return;
+
+                SearchFileNameByExtension(file, searchText);
+            }
+        }
+
+
+        /// <summary>
+        /// Recursive dosya arama
+        /// </summary>
+        /// <param name="startFolder"></param>
+        /// <param name="searchText"></param>
+        public void RecursiveFileSearchByExtension(string startFolder, string searchText)
+        {
+            void DirectorySearch(string toSearchDir)
+            {
+                foreach (string folder in Directory.GetDirectories(toSearchDir))
+                {
+                    if (!IsSearching) return; //Arama sırasında iptal'e basılmışsa arama sonlandırılır.
+
+                    foreach (string file in Directory.GetFiles(folder))
+                    {
+                        if (!IsSearching) return;
+
+                        SearchFileNameByExtension(file, searchText);
+                    }
+
+                    FolderSearched++;
+
+                    DirectorySearch(folder);
+                }
+            }
+
+            DirectorySearch(startFolder);
+        }
+
+        /// <summary>
+        /// Dosya adı içerisinde aranılan isim var mı diye kontrol eder. 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
+        public bool SearchFileNameByExtension(string name, string searchText)
+        {
+            if (IsEqualExtension(name))
+            {
+                SearchFileName(name, searchText);
+            }
+            return false;
+
+        }
+
     }
 }
