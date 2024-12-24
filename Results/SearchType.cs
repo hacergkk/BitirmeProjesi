@@ -9,6 +9,6 @@ namespace SearchApplication.Results
     public enum SearchType
     {
         //bu tür: "Arama Türü" başlığı altında yer alan seçenekler içindir.
-        Folder, File, All
+        Folder, File, All, ByExtension
     }
 }

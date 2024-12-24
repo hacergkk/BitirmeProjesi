@@ -15,6 +15,7 @@
     <Window.Resources>
         <Converters:MultiBoolToEnumConverter x:Key="MultiBoolToEnumConverter"/>
         <Converters:InvertBoolConverter x:Key="InvertBoolConverter"/>
+        <Converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Grid Margin="5">
         <Grid Height="123" VerticalAlignment="Top" >
@@ -34,11 +35,16 @@
             <Label Content="Diğer Seçenekler :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,93,0,0"/>
             <CheckBox IsChecked="{Binding CaseSensitive, UpdateSourceTrigger=PropertyChanged}" Content="Büyük/Küçük Harf Duyarlı" HorizontalAlignment="Left" Margin="112,98,0,0" VerticalAlignment="Top" />
             <CheckBox  IsChecked="{Binding SearchRecursive, UpdateSourceTrigger=PropertyChanged}" Content="Kapsamlı Arama" HorizontalAlignment="Left" Margin="280,98,0,0" VerticalAlignment="Top" />
+
+            <RadioButton Name="ByExtensionRadioButton" IsChecked="{Binding SearchOption, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiBoolToEnumConverter}, ConverterParameter=ByExtension}" Content="Uzantıya Göre" HorizontalAlignment="Left" Margin="275,65,0,0" VerticalAlignment="Top"/>
+            <TextBox Visibility="{Binding IsChecked, ElementName=ByExtensionRadioButton, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{Binding EntryExtension, UpdateSourceTrigger=PropertyChanged}" Padding="2" TextWrapping="NoWrap" VerticalAlignment="Top"  Margin="385,65,115,0" BorderThickness="1 1 1 1" />
+           
+           
         </Grid>
         
         <Separator VerticalAlignment="Top" Margin="0,126,0,0"/>
         
-        <Grid Margin="0,123,0,0">
+        <Grid Margin="0,123,0,0">      
             <Label Content="Arama Sonucu" HorizontalAlignment="Left" Margin="1,11,0,0" VerticalAlignment="Top"/>
             <ListBox ItemsSource="{Binding Results, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedResult, Mode=TwoWay}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,46,0,39">
                 <ListBox.ItemTemplate>

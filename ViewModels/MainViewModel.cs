@@ -102,6 +102,26 @@ namespace SearchApplication.ViewModels
             get => _searchRecursive;
             set => RaisePropertyChanged(ref _searchRecursive, value);
         }
+
+        private string _entryExtension;
+        /// <summary>
+        /// Uzantı girişi
+        /// </summary>
+        public string EntryExtension
+        {
+            get => _entryExtension;
+            set => RaisePropertyChanged(ref _entryExtension, value);
+        }
+
+        private bool _byExtension;
+        /// <summary>
+        /// Uzantıya göre
+        /// </summary>
+        public bool ByExtension
+        {
+            get => _byExtension;
+            set => RaisePropertyChanged(ref _byExtension, value);
+        }
         /// <summary>
         /// Verileri birbirine bağlamak için wpf'de bu metot tercih edilir.
         /// </summary>
@@ -138,12 +158,13 @@ namespace SearchApplication.ViewModels
         {
             Results = new ObservableCollection<ResultItemViewModel>();
             //bu results'ı mainwindow'da Results.Count olarak bulunan öge sayımında da kullanıyoruz.
-
+            
             ClearResultsCommand = new Command(Clear);
             SelectStartFolderPathCommand = new Command(SelectStartFolderPath);
             CopyPathCommand = new Command(CopyPath);
             CancelSearchCommand = new Command(CancelSearch);
             SearchCommand = new Command(Find);
+            
         }
         /// <summary>
         /// Dosyanın/klasörün yolunu kopyalamak için kullanılır.
