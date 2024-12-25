@@ -137,7 +137,7 @@ namespace SearchApplication.ViewModels
         /// <summary>
         /// İptal Butonu için komutun tanımlanması
         /// </summary>
-        public ICommand CancelSearchCommand { get; }
+        public ICommand CancelCommand { get; }
 
         /// <summary>
         /// ... Butonu klasör seçmek için komutun tanımlanması
@@ -162,7 +162,7 @@ namespace SearchApplication.ViewModels
             ClearResultsCommand = new Command(Clear);
             SelectStartFolderPathCommand = new Command(SelectStartFolderPath);
             CopyPathCommand = new Command(CopyPath);
-            CancelSearchCommand = new Command(CancelSearch);
+            CancelCommand = new Command(CancelSearch);
             SearchCommand = new Command(Find);
             
         }
